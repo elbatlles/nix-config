@@ -97,10 +97,16 @@
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+virtualisation.docker.enable = true;
+ virtualisation.docker.rootless = {
+  enable = true;
+  setSocketVariable = true;
+};
+ 
   users.users.angel = {
     isNormalUser = true;
     description = "Angel";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
 
     packages = with pkgs; [
       firefox
@@ -142,7 +148,18 @@
       neofetch
       nixpkgs-fmt
       zsh-powerlevel10k
-
+      whatsapp-for-linux 
+      telegram-desktop  
+      zathura 
+      imv  
+       numix-icon-theme-circle
+    colloid-icon-theme
+    catppuccin-gtk
+    catppuccin-kvantum
+    catppuccin-cursors.macchiatoTeal
+    cliphist
+   wl-clipboard
+   grim
     ];
   };
   users.defaultUserShell = pkgs.zsh;
@@ -162,6 +179,46 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  #theme
+  environment.variables.GTK_THEME = "Catppuccin-Macchiato-Standard-Teal-Dark";
+  environment.variables.XCURSOR_THEME = "Catppuccin-Macchiato-Teal";
+  environment.variables.XCURSOR_SIZE = "24";
+  console = {
+    earlySetup = true;
+    colors = [
+      "24273a"
+      "ed8796"
+      "a6da95"
+      "eed49f"
+      "8aadf4"
+      "f5bde6"
+      "8bd5ca"
+      "cad3f5"
+      "5b6078"
+      "ed8796"
+      "a6da95"
+      "eed49f"
+      "8aadf4"
+      "f5bde6"
+      "8bd5ca"
+      "a5adcb"
+    ];
+  };
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = ["teal"]; };
+    catppuccin-gtk = pkgs.catppuccin-gtk.override {
+      accents = [ "teal" ]; # You can specify multiple accents here to output multiple themes 
+      size = "standard";
+      variant = "macchiato";
+    };
+   
+  };
+
+ 
+
+  #theme fi
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -170,6 +227,8 @@
     home-manager
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    htop
+    docker-compose 
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -267,5 +326,5 @@
     font-awesome
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
-
+ 
 }
