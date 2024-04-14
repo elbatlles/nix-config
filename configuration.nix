@@ -2,6 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+
 { config, pkgs, ... }:
 
 {
@@ -9,8 +10,9 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+    #  ./packages/crypto.com/default.nix
     ];
-
+ 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -102,7 +104,8 @@ virtualisation.docker.enable = true;
   enable = true;
   setSocketVariable = true;
 };
- 
+
+
   users.users.angel = {
     isNormalUser = true;
     description = "Angel";
@@ -160,6 +163,9 @@ virtualisation.docker.enable = true;
     cliphist
    wl-clipboard
    grim
+   libsForQt5.kdeconnect-kde
+   
+   
     ];
   };
   users.defaultUserShell = pkgs.zsh;
@@ -215,21 +221,34 @@ virtualisation.docker.enable = true;
    
   };
 
- 
 
   #theme fi
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    ntfs3g
-    nano
-    home-manager
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    htop
-    docker-compose 
-  ];
+environment.systemPackages = with pkgs; [
+  ntfs3g
+  nano
+  home-manager
+  #  vim # No olvides añadir un editor para editar configuration.nix! El editor Nano también está instalado por defecto.
+  wget
+  htop
+  docker-compose
+   appimage-run
+   appimagekit
+  
+];
+
+  # appimageTools = {
+  #   wrapType1 = {
+  #     name = "patchwork";
+  #     src = pkgs.fetchurl {
+  #       url = "https://github.com/ssbc/patchwork/releases/download/v3.11.4/Patchwork-3.11.4-linux-x86_64.AppImage";
+  #       hash = "sha256-OqTitCeZ6xmWbqYTXp8sDrmVgTNjPZNW0hzUPW++mq4=";
+  #     };
+  #     extraPkgs = pkgs: with pkgs; [ ];
+  #   };
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -280,7 +299,11 @@ virtualisation.docker.enable = true;
     hyprland = {
       enable = true;
       xwayland.enable = true;
+      
     };
+    kdeconnect={
+        enable = true;
+      };
   #   git = { 
   #   enable = true;
   #   userName = "elbatlles";
