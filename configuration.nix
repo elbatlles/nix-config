@@ -10,9 +10,9 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-    #  ./packages/crypto.com/default.nix
+      #  ./packages/crypto.com/default.nix
     ];
- 
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -99,11 +99,11 @@
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-virtualisation.docker.enable = true;
- virtualisation.docker.rootless = {
-  enable = true;
-  setSocketVariable = true;
-};
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
 
 
   users.users.angel = {
@@ -151,21 +151,23 @@ virtualisation.docker.enable = true;
       neofetch
       nixpkgs-fmt
       zsh-powerlevel10k
-      whatsapp-for-linux 
-      telegram-desktop  
-      zathura 
-      imv  
-       numix-icon-theme-circle
-    colloid-icon-theme
-    catppuccin-gtk
-    catppuccin-kvantum
-    catppuccin-cursors.macchiatoTeal
-    cliphist
-   wl-clipboard
-   grim
-   libsForQt5.kdeconnect-kde
-   
-   
+      whatsapp-for-linux
+      telegram-desktop
+      zathura
+      imv
+      numix-icon-theme-circle
+      colloid-icon-theme
+      catppuccin-gtk
+      catppuccin-kvantum
+      catppuccin-cursors.macchiatoTeal
+      cliphist
+      wl-clipboard
+      grim
+      libsForQt5.kdeconnect-kde
+      yarn
+  nodePackages.rush
+  nodejs_18
+  corepack_18
     ];
   };
   users.defaultUserShell = pkgs.zsh;
@@ -212,13 +214,13 @@ virtualisation.docker.enable = true;
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
-    colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = ["teal"]; };
+    colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = [ "teal" ]; };
     catppuccin-gtk = pkgs.catppuccin-gtk.override {
       accents = [ "teal" ]; # You can specify multiple accents here to output multiple themes 
       size = "standard";
       variant = "macchiato";
     };
-   
+
   };
 
 
@@ -226,18 +228,18 @@ virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-environment.systemPackages = with pkgs; [
-  ntfs3g
-  nano
-  home-manager
-  #  vim # No olvides añadir un editor para editar configuration.nix! El editor Nano también está instalado por defecto.
-  wget
-  htop
-  docker-compose
-   appimage-run
-   appimagekit
-  
-];
+  environment.systemPackages = with pkgs; [
+    ntfs3g
+    nano
+    home-manager
+    #  vim # No olvides añadir un editor para editar configuration.nix! El editor Nano también está instalado por defecto.
+    wget
+    htop
+    docker-compose
+    appimage-run
+    appimagekit
+
+  ];
 
   # appimageTools = {
   #   wrapType1 = {
@@ -299,16 +301,16 @@ environment.systemPackages = with pkgs; [
     hyprland = {
       enable = true;
       xwayland.enable = true;
-      
+
     };
-    kdeconnect={
-        enable = true;
-      };
-  #   git = { 
-  #   enable = true;
-  #   userName = "elbatlles";
-  #   userEmail = "angelbatlles@gmail.com";
-  # };
+    kdeconnect = {
+      enable = true;
+    };
+    #   git = { 
+    #   enable = true;
+    #   userName = "elbatlles";
+    #   userEmail = "angelbatlles@gmail.com";
+    # };
 
     zsh = {
       enable = true;
@@ -349,5 +351,5 @@ environment.systemPackages = with pkgs; [
     font-awesome
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
- 
+
 }
