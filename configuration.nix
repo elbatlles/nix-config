@@ -26,9 +26,9 @@
 
 
   networking.wireless.networks = {
-    MiFibra-C940 = {
+    ADAMO-26FC = {
       # SSID with no spaces or special characters
-      pskRaw = "974e36aa28498ecfbf33a71488e1d1d87d9aa9e65c3647ac57ce120df80748f7";
+      pskRaw = "111442aa32462d6d50cf8222f2c4c114b960e6d1617826311dd16a90af96945b";
     };
   };
 
@@ -62,15 +62,17 @@
   services.xserver.enable = true;
   services.blueman.enable = true;
   # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   #services.xserver.displayManager.lightdm.enable = true;
   #services.xserver.desktopManager.xfce.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb ={
+      layout = "us,es";
+    };
+   # xkbvariant = "";
   };
 
   # Enable CUPS to print documents.
@@ -148,7 +150,7 @@
       xdg-utils
       xdg-desktop-portal-hyprland
       pywal
-      neofetch
+      fastfetch
       nixpkgs-fmt
       zsh-powerlevel10k
       whatsapp-for-linux
@@ -168,12 +170,24 @@
   nodePackages.rush
   nodejs_18
   corepack_18
+  python311Packages.langchain
+  python311Packages.jupyter-core
+  python311Packages.pip
+  python311Packages.ipykernel
+   python311Packages.jupyterlab
+   python311Packages.nbformat
+  python3
+  poetry
+  pyenv
+  timeshift
+    vimPlugins.LazyVim
+    neovim
     ];
   };
   users.defaultUserShell = pkgs.zsh;
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "angel";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "angel";
   services.gvfs.enable = true; # Mount, trash, and other functionalities
   services.tumbler.enable = true; # Thumbnail support for images
   services = {
@@ -296,7 +310,7 @@
     };
   };
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
   programs = {
     hyprland = {
       enable = true;
