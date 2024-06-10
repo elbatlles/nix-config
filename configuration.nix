@@ -166,7 +166,11 @@
       catppuccin-cursors.macchiatoTeal
       cliphist
       wl-clipboard
+      nwg-look
       grim
+      imagemagick
+      gtk-engine-murrine
+      wezterm
       libsForQt5.kdeconnect-kde
       yarn
   nodePackages.rush
@@ -181,9 +185,13 @@
   python3
   poetry
   pyenv
+  zellij
   timeshift
+  pyprland
     vimPlugins.LazyVim
     neovim
+    killall
+    libgccjit
     ];
   };
   users.defaultUserShell = pkgs.zsh;
