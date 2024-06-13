@@ -3,7 +3,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 
-{ config, pkgs, ... }:
+{ config, pkgs,inputs, ... }:
+
 
 {
   imports =
@@ -192,6 +193,7 @@
     neovim
     killall
     libgccjit
+    
     ];
   };
   users.defaultUserShell = pkgs.zsh;
@@ -262,6 +264,7 @@
     docker-compose
     appimage-run
     appimagekit
+ neovim
 
   ];
 

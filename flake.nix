@@ -5,6 +5,7 @@
 	nixpkgs.url = "nixpkgs/nixos-unstable";
 	wallust.url = "git+https://codeberg.org/explosion-mental/wallust?ref=dev"; # change to dev or master depending your choice
 	distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes"; 
+     nixvim.url = "github:elythh/nixvim";
   	};
 
   outputs = 
@@ -19,6 +20,11 @@
         	config = {
           	allowUnfree = true;
         	};
+           overlays = [
+      (final: prev: {
+        neovim = inputs.nixvim.packages.${pkgs.system}.default;
+      })
+    ];
       	};
     in
     {
@@ -33,5 +39,8 @@
 	   		modules = [ ./configuration.nix ];
 			};
 		};
+     packages.${system} = {
+        default = pkgs.neovim;
+      };
 	};  	
 }
