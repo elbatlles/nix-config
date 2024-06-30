@@ -104,7 +104,7 @@
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  virtualisation.docker.enable = true;
+  virtualisation.docker.enable = false;
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
@@ -177,12 +177,12 @@
   nodePackages.rush
   nodejs_18
   corepack_18
-  python311Packages.langchain
-  python311Packages.jupyter-core
-  python311Packages.pip
-  python311Packages.ipykernel
-   python311Packages.jupyterlab
-   python311Packages.nbformat
+  # python311Packages.langchain
+  # python311Packages.jupyter-core
+  # python311Packages.pip
+  # python311Packages.ipykernel
+  #  python311Packages.jupyterlab
+  #  python311Packages.nbformat
   python3
   poetry
   pyenv
@@ -193,7 +193,7 @@
     neovim
     killall
     libgccjit
-    
+    ripgrep
     ];
   };
   users.defaultUserShell = pkgs.zsh;
@@ -265,6 +265,15 @@
     appimage-run
     appimagekit
  neovim
+ (retroarch.override {
+    cores = with libretro; [
+      genesis-plus-gx
+      snes9x
+      beetle-psx-hw
+      mupen64plus
+
+    ];
+  })
 
   ];
 
@@ -312,9 +321,7 @@
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
       substituters = [ "https://hyprland.cachix.org" ];
-      # trusted-public-keys = [
-      #   "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2YmFiN2U3MC0xMTM4LTRlODQtYjE2OC00N2ZhNzA2MDkxZGUiLCJzY29wZXMiOiJ0eCJ9.T0e1YsEb3v8dVxDoWd7Vp2YALWYLySDava3Q8ZpHeRo"
-      # ];
+    
     };
     gc = {
       automatic = true;
