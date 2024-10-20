@@ -128,7 +128,6 @@
       git
       libnotify
       libappindicator
-      vscodium
       #  thunderbird
       brave
       ledger-live-desktop
@@ -186,7 +185,6 @@
   python3
   poetry
   pyenv
-  zellij
   timeshift
   pyprland
     vimPlugins.LazyVim
@@ -194,6 +192,11 @@
     killall
     libgccjit
     ripgrep
+    hypridle
+    hyprlock
+vscode
+warp-terminal
+#zed-editor
     ];
   };
   users.defaultUserShell = pkgs.zsh;
@@ -217,6 +220,7 @@
   environment.variables.GTK_THEME = "Catppuccin-Macchiato-Standard-Teal-Dark";
   environment.variables.XCURSOR_THEME = "Catppuccin-Macchiato-Teal";
   environment.variables.XCURSOR_SIZE = "24";
+  #environment.variables.NIX_CFLAGS_COMPILE="-flags1 -flags2";
   console = {
     earlySetup = true;
     colors = [
@@ -246,6 +250,9 @@
       size = "standard";
       variant = "macchiato";
     };
+    #  warp-beta = import (fetchTarball "https://github.com/imadnyc/nixpkgs/archive/refs/heads/warp-terminal-initial-linux.zip") {
+    #         config = config.nixpkgs.config;  
+    #     };
 
   };
 
@@ -319,7 +326,7 @@
   nix = {
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+   #   experimental-features = [ "nix-command" "flakes" ];
       substituters = [ "https://hyprland.cachix.org" ];
     
     };
