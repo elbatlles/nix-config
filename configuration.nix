@@ -23,7 +23,9 @@
   #boot.kernelModules = [ "mt7921u" ];
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
-  networking.wireless.interfaces = [ "wlp6s0u1" ];
+ networking.wireless.interfaces = [ "wlp0s29u1u6" ];
+  # networking.interfaces.wlp0s29u1u6.useDHCP = true;
+  networking.useDHCP = true;
 
 
   networking.wireless.networks = {
@@ -38,7 +40,7 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+#  networking.networkmanager.enable = true;
   networking.networkmanager.unmanaged = [ "eno1" ];
 
   # Set your time zone.
@@ -69,7 +71,7 @@
   services.displayManager.sddm.wayland.enable = true;
   #services.xserver.displayManager.lightdm.enable = true;
   #services.xserver.desktopManager.xfce.enable = true;
-
+#services.network-manager.enable = false;
   # Configure keymap in X11
   services.xserver = {
     xkb ={
@@ -79,7 +81,16 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # services.printing.enable = true;
+  services.printing = {
+  enable = true;
+  drivers = [ pkgs.hplipWithPlugin ];
+ };
+  services.avahi = {
+  enable = true;
+  nssmdns4 = true;
+  openFirewall = true;
+};
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -109,12 +120,15 @@
     enable = true;
     setSocketVariable = true;
   };
+virtualisation.libvirtd.enable = true;
+programs.virt-manager.enable = true;
+virtualisation.spiceUSBRedirection.enable = true;
 
 
   users.users.angel = {
     isNormalUser = true;
     description = "Angel";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
 
     packages = with pkgs; [
       firefox
@@ -182,6 +196,7 @@
   # python311Packages.ipykernel
   #  python311Packages.jupyterlab
   #  python311Packages.nbformat
+   python312Packages.pip
   python3
   poetry
   pyenv
@@ -196,6 +211,9 @@
     hyprlock
 vscode
 warp-terminal
+hplip
+libreoffice
+keepass
 #zed-editor
     ];
   };
@@ -313,7 +331,7 @@ warp-terminal
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  networking.wireless.userControlled.enable = true;
+  networking.wireless.userControlled.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
