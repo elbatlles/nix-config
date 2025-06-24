@@ -1,5 +1,5 @@
 {
-  description = "Configuración de NixOS y entornos dev";
+  description = "Entornos de desarrollo para IA y Web";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
@@ -7,18 +7,7 @@
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
-    # 👇 Parte para `nixos-rebuild`
-    nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-        ];
-      };
-    };
-
-    # 👇 Tus devShells separados
-    devShells = {
+    devShells.${system} = {
       ia = pkgs.mkShell {
         packages = with pkgs.python311Packages; [
           jupyterlab
@@ -37,6 +26,15 @@
           typescript
           eslint
           vite
+        ];
+      };
+    };
+
+    nixosConfigurations = {
+      nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
         ];
       };
     };
