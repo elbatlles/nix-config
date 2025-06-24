@@ -24,6 +24,12 @@
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
  networking.wireless.interfaces = [ "wlp0s29u1u6" ];
+  # networking.wireless.interfaces.wlp0s29u1u6.ipv4.address = "192.168.1.109";
+  # networking.wireless.interfaces.wlp0s29u1u6.ipv4.prefixLength = 24;
+  # networking.interfaces.wlp0s29u1u6.ipv4.address = [{
+  #   address ="192.168.1.109";
+  #   prefixLength = 24;
+  # }]
   # networking.interfaces.wlp0s29u1u6.useDHCP = true;
   networking.useDHCP = true;
 
@@ -42,6 +48,7 @@
   # Enable networking
 #  networking.networkmanager.enable = true;
   networking.networkmanager.unmanaged = [ "eno1" ];
+  networking.networkmanager.wifi.powersave = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
@@ -93,7 +100,8 @@
 };
 
   # Enable sound with pipewire.
-  sound.enable = true;
+ # sound.enable = true;
+ #hardware.alsa
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   security.pam.services.swaylock = { };
@@ -122,6 +130,8 @@
   };
 virtualisation.libvirtd.enable = true;
 programs.virt-manager.enable = true;
+   
+   
 virtualisation.spiceUSBRedirection.enable = true;
 
 
@@ -133,9 +143,9 @@ virtualisation.spiceUSBRedirection.enable = true;
     packages = with pkgs; [
       firefox
       google-chrome
-      signal-desktop
+ #     signal-desktop
       polkit_gnome
-      gnome.file-roller
+     file-roller
       tilix
       networkmanagerapplet
       slurp
@@ -148,18 +158,25 @@ virtualisation.spiceUSBRedirection.enable = true;
       #rofi
       rofi-wayland
       kitty
+      pavucontrol
       qt6Packages.qtstyleplugin-kvantum #kvantum
       libsForQt5.qtstyleplugin-kvantum #kvantum
       qt6.qtwayland
-      wl-clipboard
+     # wl-clipboard
       wlogout
       waybar
+      cliphist
       swappy
+ qalculate-gtk
       swayidle
       swaylock-effects
       swaynotificationcenter
       swww
-      qt5ct
+      mako
+      btop
+      wlsunset
+     # qt5ct
+     libsForQt5.qt5ct
       qt6ct
       sublime3
       vlc
@@ -179,17 +196,18 @@ virtualisation.spiceUSBRedirection.enable = true;
       catppuccin-kvantum
       catppuccin-cursors.macchiatoTeal
       cliphist
-      wl-clipboard
+     wl-clipboard
       nwg-look
       grim
       imagemagick
+      nwg-displays
       gtk-engine-murrine
       wezterm
       libsForQt5.kdeconnect-kde
       yarn
-  nodePackages.rush
-  nodejs_18
-  corepack_18
+  #nodePackages.rush
+  #nodejs_18
+  #corepack_18
   # python311Packages.langchain
   # python311Packages.jupyter-core
   # python311Packages.pip
@@ -214,6 +232,8 @@ warp-terminal
 hplip
 libreoffice
 keepass
+playerctl
+#protonvpn-gui
 #zed-editor
     ];
   };
@@ -288,17 +308,17 @@ keepass
     htop
     docker-compose
     appimage-run
-    appimagekit
+   # appimagekit
  neovim
- (retroarch.override {
-    cores = with libretro; [
-      genesis-plus-gx
-      snes9x
-      beetle-psx-hw
-      mupen64plus
+#  (retroarch.override {
+#     cores = with libretro; [
+#       genesis-plus-gx
+#       snes9x
+#       beetle-psx-hw
+#       mupen64plus
 
-    ];
-  })
+#     ];
+#   })
 
   ];
 
@@ -344,7 +364,7 @@ keepass
   nix = {
     settings = {
       auto-optimise-store = true;
-   #   experimental-features = [ "nix-command" "flakes" ];
+     experimental-features = [ "nix-command" "flakes" ];
       substituters = [ "https://hyprland.cachix.org" ];
     
     };
@@ -356,7 +376,9 @@ keepass
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?
+
   programs = {
+   
     hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -405,10 +427,12 @@ keepass
 
     noto-fonts
     fira-code
-    noto-fonts-cjk
+  noto-fonts-cjk-sans
     jetbrains-mono
     font-awesome
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+   #(nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    #pkgs.nerd-fonts.JetBrains-Mono
+    nerd-fonts.jetbrains-mono
   ];
 
 }

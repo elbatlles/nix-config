@@ -81,7 +81,7 @@
     zathura = {
       enable = true;
       options = {
-        selection-clipboard = "clipboard";
+        selection-clipboard = "cliphist";
         statusbar-basename = true;
         window-title-home-tilde = true;
       };
