@@ -1,5 +1,5 @@
 {
-  description = "Entornos de desarrollo para IA y Web";
+  description = "Configuración de NixOS y entornos dev";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
@@ -7,19 +7,27 @@
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
+    # 👇 Parte para `nixos-rebuild`
+    nixosConfigurations = {
+      nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+        ];
+      };
+    };
+
+    # 👇 Tus devShells separados
     devShells = {
       ia = pkgs.mkShell {
         packages = with pkgs.python311Packages; [
-          ipykernel
           jupyterlab
           openai
           langchain
+          ipykernel
           pandas
           numpy
         ];
-        shellHook = ''
-          echo "Entorno IA activado (Jupyter, LangChain, OpenAI)"
-        '';
       };
 
       web = pkgs.mkShell {
@@ -30,9 +38,6 @@
           eslint
           vite
         ];
-        shellHook = ''
-          echo "Entorno Web activado (Node.js, Vite, TypeScript)"
-        '';
       };
     };
   };
